@@ -1,33 +1,57 @@
 {
-  "name": "stream0async",
+  "name": "stream-async",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
   "author": "yijie <yijie4188@gmail.com>",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "repository": {
-    "type": "git", "url": "git+https://git@github.com:NWYLZW/stream-async.git"
+    "type": "git",
+    "url": "git+https://github.com/NWYLZW/stream-async.git"
   },
   "scripts": {
-    "build": "tsc -b",
+    "build": "rimraf lib/* && rollup run-p build:esm build:umd build:min",
+    "build:dev": "yarn build:esm -- -w",
+    "build:esm": "rollup -c --environment FORMAT:esm",
+    "build:umd": "rollup -c --environment FORMAT:umd",
+    "build:min": "rollup -c --environment FORMAT:min",
+    "lint": "eslint src/**/*.{js,ts}",
     "test": "mocha"
   },
-  "keywords": [
-    "proxy", "promise", "chain", "async", "tool"
-  ],
   "devDependencies": {
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@types/node": "^15.6.0",
     "@types/chai": "^4.2.16",
     "@types/chai-as-promised": "^7.1.3",
     "@types/mocha": "^8.2.2",
-    "@types/node": "^14.14.41",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "esbuild-register": "^2.5.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-mocha": "^8.1.0",
+    "lodash.merge": "^4.6.2",
     "mocha": "^8.3.2",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.49.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
+    "tslib": "^2.2.0",
     "typescript": "^4.2.4"
-  }
+  },
+  "keywords": [
+    "proxy",
+    "promise",
+    "chain",
+    "async",
+    "tool"
+  ]
 }
