@@ -19,13 +19,25 @@ describe('basic support', function () {
       this.foo += 1
       return this
     }
+    async asyncFun0(x) {
+      this.foo += +x
+      return this
+    }
   }
-  it('should await fun by chain.', async () => {
+  it('should await async fun.', async () => {
     const a = new A()
     await a.stream
       .fun()
       .asyncFun()
       .fun()
     expect(a.foo).to.eq(4)
+  })
+  it('should await async fun with params.', async () => {
+    const a = new A()
+    await a.stream
+      .asyncFun()
+      .asyncFun0(10)
+      .asyncFun0(10)
+    expect(a.foo).to.eq(22)
   })
 })
