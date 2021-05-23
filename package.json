@@ -24,7 +24,10 @@
     "lint": "eslint src/**/*.{js,ts}",
     "test": "mocha"
   },
+  "dependencies": {
+  },
   "devDependencies": {
+    "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "@babel/preset-typescript": "^7.13.0",
     "@rollup/plugin-babel": "^5.3.0",
@@ -58,8 +61,5 @@
     "chain",
     "async",
     "tool"
-  ],
-  "dependencies": {
-    "@babel/core": "^7.14.3"
-  }
+  ]
 }
