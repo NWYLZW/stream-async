@@ -48,6 +48,7 @@ const options = {
       exclude: [ 'node_modules/**', 'lib/**', '*.js' ],
     }),
     typescript({
+      module: 'esnext',
       tsconfig: 'tsconfig.json'
     }),
     babel({
