@@ -9,15 +9,15 @@
     "dist"
   ],
   "repository": {
-    "type": "git", "url": "git+https://github.com/"
+    "type": "git", "url": "git+https://git@github.com:NWYLZW/stream-async.git"
   },
-  "keywords": [
-    "proxy", "promise", "chain", "async", "tool"
-  ],
   "scripts": {
     "build": "tsc -b",
     "test": "mocha"
   },
+  "keywords": [
+    "proxy", "promise", "chain", "async", "tool"
+  ],
   "devDependencies": {
     "@types/chai": "^4.2.16",
     "@types/chai-as-promised": "^7.1.3",
