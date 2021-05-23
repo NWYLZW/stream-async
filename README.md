@@ -4,7 +4,7 @@ do async method by stream code style.
 
 ## how to use
 
-### install
+### install in nodejs
 
 ```shell
 npm install stream-async
@@ -38,13 +38,26 @@ import { streamAsync } from 'stream-async'
 class A {
   stream = streamAsync(this)
   foo = 1
+  fun () {
+    this.foo += 1
+    return this
+  }
   async asyncFun() {
     this.foo += 1
     return this
   }
+  async asyncFun0(x) {
+    this.foo += x
+    return this
+  }
 }
 const a = new A()
-a.stream.asyncFun().asyncFun()
+a.stream
+  .asyncFun()
+  .fun()
+  .asyncFun()
+  .asyncFun0(10)
+
 console.log(a.foo)
-// there will output `3`
+// there will output `14`
 ```
