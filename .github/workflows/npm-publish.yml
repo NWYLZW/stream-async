@@ -18,9 +18,7 @@ jobs:
           node-version: 14
       - uses: CultureHQ/actions-yarn@v1.0.1
       - run: yarn
-      - run: yarn lint
-      - run: yarn test
-      - run: yarn build
+      - run: yarn prepublish
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}

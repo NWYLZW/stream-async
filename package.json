@@ -16,7 +16,7 @@
     "url": "git+https://github.com/NWYLZW/stream-async.git"
   },
   "scripts": {
-    "publish": "yarn test && yarn lint && yarn build",
+    "prepublish": "yarn test && yarn lint && yarn build",
     "build": "rimraf lib/* && run-p build:esm build:umd build:min build:dts",
     "build:dev": "yarn build:esm -- -w",
     "build:esm": "rollup -c --environment FORMAT:esm",
