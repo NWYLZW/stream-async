@@ -10,22 +10,25 @@ type Wrap<T> = {
     : T[K]
 }
 
-export const streamAsync = <T>(t: T) => {
-  const promise = Promise.resolve<T>(t)
-
-  return new Proxy(t as Wrap<T>, {
-    get(_, property, receiver) {
-      const val = t[property], type = typeof val
+export const streamAsync = <T>(source: T) => {
+  const promiseSource = Promise.resolve(source)
+  return new Proxy(source as Wrap<T>, {
+    get(_, property) {
+      const propertyVal = source[property]
       console.log(
-        property, type
+        source, property, propertyVal, typeof propertyVal
       )
-      if (type !== 'function') return val
 
-      return streamAsync(t[property])
-    },
-    apply(fun, thisArg, args) {
-      return streamAsync(promise.then(
-        t => Reflect.apply(t, thisArg, args)
+      if ([ 'then', 'catch', 'finally' ].includes(
+        property as string
+      )) return new Proxy(function () {}, {
+        apply(_, thisArg, argArray) {
+          return Reflect.apply(propertyVal, source, argArray)
+        }
+      })
+
+      return (...args) => streamAsync(promiseSource.then(
+        t => t[property].apply(t, args)
       ))
     }
   })
