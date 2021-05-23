@@ -4,6 +4,7 @@ import { RollupOptions } from 'rollup'
 import merge from 'lodash.merge'
 
 import { terser } from 'rollup-plugin-terser'
+import eslint from '@rollup/plugin-eslint'
 import typescript from '@rollup/plugin-typescript'
 
 import pkg from './package.json'
@@ -39,6 +40,12 @@ const options = {
   input: 'src/index.ts',
   output: { name: pkg.name },
   plugins: [
+    eslint({
+      throwOnError: true,
+      throwOnWarning: true,
+      include: [ 'src/**/*.ts' ],
+      exclude: [ 'node_modules/**', 'lib/**', '*.js' ],
+    }),
     typescript({
       tsconfig: 'tsconfig.json'
     })

@@ -15,7 +15,7 @@ type Gets<T, U> = Pick<T, {
 }[keyof T]>
 
 type Wrap<T, K extends string = 'stream'> = FadeAsync<Gets<
-  Omit<T, K>, Function
+  Omit<T, K>, (...args: any) => unknown
 >>
 
 export const streamAsync = <T>(source: T): Wrap<T> => {
