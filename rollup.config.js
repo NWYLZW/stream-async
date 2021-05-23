@@ -14,6 +14,7 @@ const resolve = (...args) => {
   return path.resolve(__dirname, ...args)
 }
 
+/** @type { Record<string, import('rollup').RollupOptions> } */
 const jobs = {
   esm: {
     output: {
