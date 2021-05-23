@@ -4,20 +4,28 @@ type BestReturnType<T> =
       T extends (...args: any) => infer U ? U :
         T
 
-type Wrap<T> = {
+type FadeAsync<T> = {
   [K in keyof T]: T[K] extends (...args: infer P) => infer R
     ? (...args: P) => Wrap<BestReturnType<R>>
     : T[K]
 }
 
-export const streamAsync = <T>(source: T) => {
-  const promiseSource = Promise.resolve(source)
-  return new Proxy(source as Wrap<T>, {
+type Gets<T, U> = Pick<T, {
+  [K in keyof T]: T[K] extends U ? K : never
+}[keyof T]>
+
+type Wrap<T, K extends string = 'stream'> = FadeAsync<Gets<
+  Omit<T, K>, Function
+>>
+
+export const streamAsync = <T>(source: T): Wrap<T> => {
+  const promiseSource = source instanceof Promise
+    ? source
+    : Promise.resolve(source)
+
+  return new Proxy(function () {} as any, {
     get(_, property) {
       const propertyVal = source[property]
-      console.log(
-        source, property, propertyVal, typeof propertyVal
-      )
 
       if ([ 'then', 'catch', 'finally' ].includes(
         property as string
@@ -27,9 +35,7 @@ export const streamAsync = <T>(source: T) => {
         }
       })
 
-      return (...args) => streamAsync(promiseSource.then(
-        t => t[property].apply(t, args)
-      ))
+      return (...args) => streamAsync(promiseSource.then(t => t[property](args)))
     }
   })
 }
