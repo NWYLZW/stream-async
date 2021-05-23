@@ -15,11 +15,15 @@ describe('basic support', function () {
       this.foo += 1
       return this
     }
+    fun0(x: number) {
+      this.foo += +x
+      return this
+    }
     async asyncFun() {
       this.foo += 1
       return this
     }
-    async asyncFun0(x) {
+    async asyncFun0(x: number) {
       this.foo += +x
       return this
     }
@@ -38,6 +42,9 @@ describe('basic support', function () {
       .asyncFun()
       .asyncFun0(10)
       .asyncFun0(10)
-    expect(a.foo).to.eq(22)
+      .fun()
+      .asyncFun()
+      .fun0(10)
+    expect(a.foo).to.eq(34)
   })
 })
