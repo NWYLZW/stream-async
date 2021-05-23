@@ -5,6 +5,7 @@ import merge from 'lodash.merge'
 
 import { terser } from 'rollup-plugin-terser'
 import eslint from '@rollup/plugin-eslint'
+import babel from '@rollup/plugin-babel'
 import typescript from '@rollup/plugin-typescript'
 
 import pkg from './package.json'
@@ -48,6 +49,10 @@ const options = {
     }),
     typescript({
       tsconfig: 'tsconfig.json'
+    }),
+    babel({
+      exclude: 'node_modules/**',
+      extensions: [ 'ts', 'tsx' ],
     })
   ]
 }
