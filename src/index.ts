@@ -35,7 +35,7 @@ export const streamAsync = <T>(source: T): Wrap<T> => {
         }
       })
 
-      return (...args) => streamAsync(promiseSource.then(t => t[property](args)))
+      return (...args) => streamAsync(promiseSource.then(t => t[property](...args)))
     }
   })
 }
