@@ -27,6 +27,10 @@ describe('basic support', function () {
       this.foo += +x
       return this
     }
+    async asyncFun1(x: number, y: number) {
+      this.foo += x + y
+      return this
+    }
   }
   it('should await async fun.', async () => {
     const a = new A()
@@ -46,5 +50,8 @@ describe('basic support', function () {
       .asyncFun()
       .fun0(10)
     expect(a.foo).to.eq(34)
+    await a.stream
+      .asyncFun1(10, 20)
+    expect(a.foo).to.eq(64)
   })
 })
